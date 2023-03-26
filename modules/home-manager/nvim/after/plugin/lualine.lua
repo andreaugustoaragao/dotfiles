@@ -1,3 +1,4 @@
+local navic = require("nvim-navic")
 require('lualine').setup {
     options = {
         theme = 'auto',
@@ -6,13 +7,14 @@ require('lualine').setup {
         disabled_filetypes = {
             statusline = { "neo-tree", "Trouble", "guihua", "toggleterm", "qf", "undotree", "diff", "alpha", "packer" },
             winbar = { "neo-tree", "Trouble", "guihua", "toggleterm", "qf", "undotree", "diff", "alpha", "packer" },
-            inactive_winbar = { "neo-tree", "Trouble", "guihua", "toggleterm", "qf", "undotree", "diff", "alpha","packer" }
-        } 
+            inactive_winbar = { "neo-tree", "Trouble", "guihua", "toggleterm", "qf", "undotree", "diff", "alpha",
+                "packer" }
+        }
     },
     sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
-        lualine_c = {},
+        lualine_c = { 'lsp_progress', },
         lualine_x = { 'encoding', 'fileformat', 'filetype' },
         lualine_y = { 'progress' },
         lualine_z = { 'location' }
@@ -35,7 +37,7 @@ require('lualine').setup {
     },
     winbar = {
         lualine_a = { 'filename' },
-        lualine_b = {},
+        lualine_b = { navic.get_location },
         lualine_c = {},
         lualine_x = {},
         lualine_y = {},

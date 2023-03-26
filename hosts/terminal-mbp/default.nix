@@ -18,19 +18,20 @@
     pathsToLink = ["/Applications"];
   };
 
-  users.users.andrearagao = {
-    home = "/Users/andrearagao";
-    shell = "${pkgs.fish}/bin/fish";
-  };
-  users.users.root = {
-    home = "/var/root";
-    shell = "${pkgs.fish}/bin/fish";
-  };
+  #users.users.andrearagao = {
+  #  home = "/Users/andrearagao";
+  #  shell = "${pkgs.fish}/bin/fish";
+  #};
+  #users.users.root = {
+  #  home = "/var/root";
+  #  shell = "${pkgs.fish}/bin/fish";
+  #};
 
   fonts.fontDir.enable = true;
   fonts.fonts = [ (pkgs.nerdfonts.override { fonts = [ "Meslo" "JetBrainsMono"]; }) ];
   environment.systemPackages = [
     pkgs.go
+    pkgs.gopls
     pkgs.neovide
     pkgs.direnv
     pkgs.dt-shell-color-scripts
@@ -38,10 +39,14 @@
     pkgs.kubectl
     pkgs.zellij
     pkgs.jdk19
+    pkgs.jdt-language-server
+    pkgs.lombok
     pkgs.vscode
     pkgs.vscode-extensions.golang.go
     pkgs.vscode-extensions.catppuccin.catppuccin-vsc
     pkgs.vscode-extensions.sumneko.lua
+    pkgs.vscode-extensions.jnoortheen.nix-ide
+    pkgs.vscode-extensions.brettm12345.nixfmt-vscode
     pkgs.jetbrains.goland
     pkgs.jetbrains.idea-ultimate
     pkgs.speedtest-cli
@@ -62,7 +67,6 @@
     pkgs.gnupg
     pkgs._1password
     pkgs.ngrok
-    pkgs._1password-gui
     pkgs.nixfmt
     pkgs.rustup
     pkgs.font-awesome_5
@@ -78,6 +82,9 @@
     pkgs.rnix-lsp
     pkgs.bottom
     pkgs.gh
+    pkgs.jq
+    pkgs.sketchybar #config requires SF Pro Font https://developer.apple.com/fonts/
+    pkgs.nnn
   ];
 
   homebrew = {
@@ -89,7 +96,7 @@
     };
     global.brewfile = true;
     caskArgs.no_quarantine = true;
-    casks = [ "raycast" "rocket-chat" "google-chrome" ];
+    casks = [ "raycast" "rocket-chat" "google-chrome" "1password"];
   };
 
   system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
@@ -107,13 +114,14 @@
 
   system.defaults.dock.autohide = true;
   system.defaults.dock.mru-spaces = false;
-  system.defaults.dock.orientation = "bottom";
+  system.defaults.dock.orientation = "right";
   system.defaults.dock.showhidden = true;
   system.defaults.dock.minimize-to-application = true;
   system.defaults.dock.launchanim = false;
   system.defaults.dock.appswitcher-all-displays = true;
 
-  system.defaults.alf.globalstate = 0;
+ # below cannot be changed in Avaya laptops - this should be placed on its own separate file
+ # system.defaults.alf.globalstate = 0;
 
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.QuitMenuItem = true;
@@ -126,7 +134,8 @@
   system.keyboard.remapCapsLockToEscape = true;
   security.pam.enableSudoTouchIdAuth = true;
 
+#https://github.com/FelixKratz/dotfiles/tree/e6288b3f4220ca1ac64a68e60fced2d4c3e3e20b
+
   services.yabai.enable = true;
-  services.yabai.package = pkgs.yabai;
   services.skhd.enable = true;
 }

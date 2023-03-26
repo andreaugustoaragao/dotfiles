@@ -46,6 +46,9 @@ $character";
       azure = {
         disabled = false;
       };
+      line_break = {
+        disabled = true;
+      };
     };
   };
 
@@ -53,7 +56,6 @@ $character";
     enable = true;
     settings.font.normal.family = "JetBrainsMono Nerd Font Mono";
     settings.font.size = 13;
-    settings.shell.program = "${pkgs.fish}/bin/fish";
   };
 
   programs.java = {
@@ -80,7 +82,10 @@ $character";
     terminal = "screen-256color";
     shell = "${pkgs.fish}/bin/fish";
     plugins = with pkgs; [
-      tmuxPlugins.cpu
+      {
+        plugin = tmuxPlugins.cpu;
+        extraConfig = "set -g status-right '#{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %a %h-%d %H:%M '";
+      }
       {
         plugin = tmuxPlugins.resurrect;
         extraConfig = "set -g @resurrect-strategy-nvim 'session'";
@@ -103,23 +108,7 @@ $character";
     defaultEditor = true;
     extraConfig = "";
     extraLuaConfig = ''
-      vim.opt.relativenumber = true
-      vim.opt.nu = true
-      vim.opt.tabstop = 4
-      vim.opt.shiftwidth = 4
-      vim.opt.expandtab = true
-      vim.opt.smartindent = true
-      vim.opt.backup = false
-      vim.opt.undofile = true
-      vim.opt.termguicolors = true
-      vim.opt.scrolloff = 8
-      vim.opt.signcolumn = "yes"
-      vim.opt.updatetime = 50
-      vim.opt.colorcolumn = "120"
-      vim.g.mapleader=" "
-      vim.g.airline_powerline_fonts = 1
-      vim.opt.foldmethod = 'expr'
-      vim.cmd('set nofoldenable')
+      require("config")      
     '';
     plugins = with pkgs.vimPlugins; [
       packer-nvim
@@ -156,6 +145,8 @@ $character";
       which-key-nvim
       undotree
       alpha-nvim
+      lspkind-nvim
+      nvim-autopairs
     ];
   };
 
@@ -166,8 +157,8 @@ $character";
   };
 
   programs.home-manager.enable = true;
-  home.homeDirectory = "/Users/andrearagao";
-  home.username = "andrearagao";
+  # home.homeDirectory = "/Users/andrearagao";
+  # home.username = "andrearagao";
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
