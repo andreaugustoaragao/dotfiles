@@ -56,12 +56,15 @@ $character";
   programs.alacritty = {
     enable = true;
     settings.font.normal.family = "JetBrainsMono Nerd Font Mono";
-    settings.font.size = 12;
+    settings.font.normal.style = "SemiBold";
+    settings.font.size = 14;
     settings.window.padding.x = 3;
     settings.window.padding.y = 5;
     settings.window.decorations = "buttonless";
     settings.window.title = "Alacritty";
     settings.window.dynamic_title = true;
+    settings.window.option_as_alt = "Both";
+
   };
 
   programs.java = {
@@ -82,12 +85,6 @@ $character";
     sensibleOnTop = true;
     prefix = "C-a";
     customPaneNavigationAndResize = true;
-    extraConfig = ''
-      set -g terminal-overrides ',XXX:RGB'
-      set -g terminal-overrides ',*256col*:RGB'
-      set -g terminal-overrides ',alacritty:RGB'
-      set -g focus-events on
-    '';
     terminal = "screen-256color";
     shell = "${pkgs.fish}/bin/fish";
     plugins = with pkgs; [
@@ -106,15 +103,82 @@ $character";
           set -g @continuum-save-interval '15' # minutes
         '';
       }
-      {
-        plugin = tmuxPlugins.catppuccin;
-        extraConfig = ''
-          set -g @catppuccin_flavour 'mocha' 
-          set -g @catppuccin_window_tabs_enabled on # or off to disable window_tabs
-          '';
-      }
-
     ];
+    extraConfig = ''
+      set -g terminal-overrides ',XXX:RGB'
+      set -g terminal-overrides ',*256col*:RGB'
+      set -g terminal-overrides ',alacritty:RGB'
+      set -g focus-events on
+
+      # Length of tmux status line
+      set -g status-left-length 30
+      set -g status-right-length 150
+
+      set-option -g status "on"
+
+      # Default statusbar color
+      set-option -g status-style bg=colour237,fg=colour223 # bg=bg1, fg=fg1
+
+      # Default window title colors
+      set-window-option -g window-status-style "bg=#89b4fa,fg=colour237" # bg=yellow, fg=bg1
+
+      # Default window with an activity alert
+      set-window-option -g window-status-activity-style bg=colour237,fg=colour248 # bg=bg1, fg=fg3
+
+      # Active window title colors
+      set-window-option -g window-status-current-style bg=red,fg=colour237 # fg=bg1
+
+      # Set active pane border color
+      set-option -g pane-active-border-style "fg=#89b4fa"
+
+      # Set inactive pane border color
+      set-option -g pane-border-style fg=colour239
+
+      # Message info
+      set-option -g message-style bg=colour239,fg=colour223 # bg=bg2, fg=fg1
+
+      # Writing commands inactive
+      set-option -g message-command-style bg=colour239,fg=colour223 # bg=fg3, fg=bg1
+
+      # Pane number display
+      set-option -g display-panes-active-colour colour1 #fg2
+      set-option -g display-panes-colour colour237 #bg1
+
+      # Clock
+      set-window-option -g clock-mode-colour colour109 #blue
+
+      # Bell
+      set-window-option -g window-status-bell-style bg=colour167,fg=colour235 # bg=red, fg=bg
+
+      set-option -g status-left "\
+      #[fg=colour7, bg=colour241]#{?client_prefix,#[bg=colour167],} ❐ #S \
+      #[fg=colour241, bg=colour237]#{?client_prefix,#[fg=colour167],}#{?window_zoomed_flag, 🔍,}"
+
+      #https://github.com/sbernheim4/dotfiles/blob/251a30db0dbbd2953df35bfa0ef43e92ce15b752/tmux/.tmux.conf#L193
+
+
+      set-option -g status-right "\
+      #[fg=#89b4fa, bg=colour237] \
+      #[fg=colour237, bg=#89b4fa] CPU: #{cpu_icon} #{cpu_percentage} \
+      #[fg=colour241, bg=colour237]\
+      #[fg=colour7, bg=colour241] %a %h-%d %H:%M \
+      #[fg=colour248, bg=colour239]"
+
+      # set -g status-right '#{forecast} #{prefix_highlight} | %a %Y-%m-%d %H:%M'
+      set-window-option -g window-status-current-format "\
+      #[fg=colour237, bg=#89b4fa]\
+      #[fg=colour239, bg=#89b4fa] #I* \
+      #[fg=colour239, bg=#89b4fa, bold] #W\
+      #[fg=#89b4fa, bg=colour237]"
+
+      set-window-option -g window-status-format "\
+      #[fg=colour237,bg=colour239,noitalics]\
+      #[fg=colour223,bg=colour239] #I \
+      #[fg=colour223, bg=colour239] #W\
+      #[fg=colour239, bg=colour237]"
+
+      set-option -g status-interval 2
+    '';
 
   };
 
