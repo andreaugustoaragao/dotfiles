@@ -68,7 +68,8 @@
     pkgs._1password
     pkgs.ngrok
     pkgs.nixfmt
-    pkgs.rustup
+    pkgs.cargo
+    pkgs.rustc
     pkgs.font-awesome_5
     pkgs.nerdfonts
     pkgs.fortune

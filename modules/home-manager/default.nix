@@ -83,7 +83,10 @@ $character";
     prefix = "C-a";
     customPaneNavigationAndResize = true;
     extraConfig = ''
-      set -ga terminal-overrides ',screen-256color:Tc'
+      set -g terminal-overrides ',XXX:RGB'
+      set -g terminal-overrides ',*256col*:RGB'
+      set -g terminal-overrides ',alacritty:RGB'
+      set -g focus-events on
     '';
     terminal = "screen-256color";
     shell = "${pkgs.fish}/bin/fish";
@@ -103,6 +106,14 @@ $character";
           set -g @continuum-save-interval '15' # minutes
         '';
       }
+      {
+        plugin = tmuxPlugins.catppuccin;
+        extraConfig = ''
+          set -g @catppuccin_flavour 'mocha' 
+          set -g @catppuccin_window_tabs_enabled on # or off to disable window_tabs
+          '';
+      }
+
     ];
 
   };
