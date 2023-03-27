@@ -16,6 +16,7 @@
   programs.bat.config.theme = "TwoDark";
   programs.fzf.enable = true;
   programs.fzf.enableFishIntegration = true;
+  programs.fzf.enableZshIntegration = true;
   programs.exa = {
     enable = true;
     enableAliases = true;
@@ -55,7 +56,12 @@ $character";
   programs.alacritty = {
     enable = true;
     settings.font.normal.family = "JetBrainsMono Nerd Font Mono";
-    settings.font.size = 13;
+    settings.font.size = 12;
+    settings.window.padding.x = 3;
+    settings.window.padding.y = 5;
+    settings.window.decorations = "buttonless";
+    settings.window.title = "Alacritty";
+    settings.window.dynamic_title = true;
   };
 
   programs.java = {
@@ -147,12 +153,30 @@ $character";
       alpha-nvim
       lspkind-nvim
       nvim-autopairs
+      harpoon
+      indent-blankline-nvim
     ];
   };
 
   
   xdg.configFile."nvim" = {
     source = ./nvim;
+    recursive = true;
+  };
+
+  xdg.configFile."sketchybar" = {
+    source = ./sketchybar;
+    recursive = true;
+  };
+
+
+  xdg.configFile."yabai" = {
+    source = ./yabai;
+    recursive = true;
+  };
+
+  xdg.configFile."skhd" = {
+    source = ./skhd;
     recursive = true;
   };
 

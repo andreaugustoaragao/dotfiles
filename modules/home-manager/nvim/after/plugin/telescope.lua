@@ -8,4 +8,3 @@ end)
 vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
 
 telescope.load_extension("file_browser")
-telescope.load_extension("packer")

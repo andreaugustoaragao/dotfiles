@@ -85,6 +85,8 @@
     pkgs.jq
     pkgs.sketchybar #config requires SF Pro Font https://developer.apple.com/fonts/
     pkgs.nnn
+    pkgs.nodejs
+    pkgs.nil
   ];
 
   homebrew = {
@@ -96,7 +98,7 @@
     };
     global.brewfile = true;
     caskArgs.no_quarantine = true;
-    casks = [ "raycast" "rocket-chat" "google-chrome" "1password"];
+    casks = [ "raycast" "rocket-chat" "google-chrome" "1password" "sf-symbols"];
   };
 
   system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
@@ -111,14 +113,20 @@
   system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode = true;
   system.defaults.NSGlobalDomain.NSNavPanelExpandedStateForSaveMode2 = true;
   system.defaults.NSGlobalDomain._HIHideMenuBar = false;
+  system.defaults.LaunchServices.LSQuarantine = false;
+  system.defaults.NSGlobalDomain.AppleFontSmoothing = 2;
+  system.defaults.NSGlobalDomain.AppleShowAllExtensions = true;
+  system.defaults.NSGlobalDomain.AppleShowAllFiles = true;
 
   system.defaults.dock.autohide = true;
   system.defaults.dock.mru-spaces = false;
-  system.defaults.dock.orientation = "right";
+  system.defaults.dock.orientation = "left";
   system.defaults.dock.showhidden = true;
   system.defaults.dock.minimize-to-application = true;
   system.defaults.dock.launchanim = false;
+  system.defaults.dock.mineffect = "suck"; #genie, scale, null
   system.defaults.dock.appswitcher-all-displays = true;
+  system.defaults.dock.show-recents = false;
 
  # below cannot be changed in Avaya laptops - this should be placed on its own separate file
  # system.defaults.alf.globalstate = 0;

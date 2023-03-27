@@ -12,7 +12,7 @@ local mason_options = {
 require ("mason").setup(mason_options)
 
 local mason_lspconfig_options = {
-    ensure_installed = { "lua_ls", "gopls", "jdtls", "rust_analyzer"}
+    ensure_installed = { "dockerls", "docker_compose_language_service", "marksman", "nil_ls", "jsonls", "bashls", "yamlls", "lua_ls", "taplo", "gopls", "jdtls", "rust_analyzer"}
 }
 require("mason-lspconfig").setup(mason_lspconfig_options)
 
@@ -115,6 +115,15 @@ local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(
 
 local common_settings = {
     Lua = {
+        runtime =  {
+            version = 'LuaJIT',
+        },
+        workspace = {
+            library = vim.api.nvim_get_runtime_file("", true),
+        },
+        telemetry = {
+            enable = false,
+        },
         diagnostics = {
             globals = { 'vim' },
         }
