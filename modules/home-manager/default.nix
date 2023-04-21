@@ -46,9 +46,34 @@
 $character";
       azure = {
         disabled = false;
+        format = "\\\[[az:($subscription)]($style)\\\]";
+      };
+      kubernetes = {
+        format = "\\\[[k8s:($cluster)]($style)\\\]";
+        disabled = false;
+      };
+      docker_context = {
+        format = "\\\[[($symbol)($context)]($style)\\\]";
+          disabled = false;
+
+      };
+      gcloud = {
+        disabled = true;
+      };
+      hostname = {
+        ssh_only = true;
+        format = "<[$hostname]($style)";
+        trim_at = "-";
+        style= "bold dimmed white";
+        disabled = true;
       };
       line_break = {
         disabled = true;
+      };
+      username = {
+        style_user = "bold dimmed blue";
+        show_always = false;
+        format = "user: [$user]($style)";
       };
     };
   };
@@ -90,7 +115,17 @@ $character";
     plugins = with pkgs; [
       {
         plugin = tmuxPlugins.cpu;
-        extraConfig = "set -g status-right '#{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %a %h-%d %H:%M '";
+        extraConfig = '' 
+                 set -g status-right "\
+                 #[fg=#89b4fa, bg=colour237] \
+                 #[fg=colour237, bg=#89b4fa] CPU: #{cpu_icon} #{cpu_percentage} \
+                 #[fg=colour241, bg=colour237]\
+                 #[fg=colour7, bg=colour241] %a %h-%d %H:%M \
+                 #[fg=colour248, bg=colour239]"
+
+
+                 #set -g status-right '#{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %a %h-%d %H:%M '
+                 '';
       }
       {
         plugin = tmuxPlugins.resurrect;
@@ -192,7 +227,6 @@ $character";
       require("config")      
     '';
     plugins = with pkgs.vimPlugins; [
-      packer-nvim
       telescope-nvim
       telescope-file-browser-nvim
       alpha-nvim

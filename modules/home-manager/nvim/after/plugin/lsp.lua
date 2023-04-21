@@ -9,10 +9,11 @@ local mason_options = {
     },
 }
 
-require ("mason").setup(mason_options)
+require("mason").setup(mason_options)
 
 local mason_lspconfig_options = {
-    ensure_installed = { "dockerls", "docker_compose_language_service", "marksman", "nil_ls", "jsonls", "bashls", "yamlls", "lua_ls", "taplo", "gopls", "jdtls", "rust_analyzer"}
+    ensure_installed = { "marksman", "nil_ls", "jsonls", "bashls",
+        "yamlls", "lua_ls", "taplo", "gopls", "jdtls", "rust_analyzer" }
 }
 require("mason-lspconfig").setup(mason_lspconfig_options)
 
@@ -115,7 +116,7 @@ local workspace_folder = home .. "/.local/share/eclipse/" .. vim.fn.fnamemodify(
 
 local common_settings = {
     Lua = {
-        runtime =  {
+        runtime = {
             version = 'LuaJIT',
         },
         workspace = {
@@ -162,9 +163,9 @@ local common_settings = {
     }
 }
 
-for _,lsp in ipairs(mason_lspconfig_options.ensure_installed) do 
-    require("lspconfig")[lsp].setup{
-        on_attach = function (client, bufnr)
+for _, lsp in ipairs(mason_lspconfig_options.ensure_installed) do
+    require("lspconfig")[lsp].setup {
+        on_attach = function(client, bufnr)
             common_on_attach(client, bufnr)
         end,
         handlers = common_handlers(),
@@ -257,7 +258,13 @@ require("lspconfig")["jdtls"].setup {
     -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
     -- for the full list of options
     cmd = {
-        home .. "/.asdf/installs/java/openjdk-19.0.2/bin/java",
+        'jdt-language-server',
+    }
+}
+
+
+--[[
+home .. "/.asdf/installs/java/openjdk-19.0.2/bin/java",
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -280,11 +287,7 @@ require("lspconfig")["jdtls"].setup {
 
         -- Use the workspace_folder defined above to store data for this project
         '-data', workspace_folder,
-    },
-}
 
-
---[[
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -296,4 +299,5 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ["<C-Space>"] = cmp.mapping.complete(),
 })
 */
-]]--
+]]
+--

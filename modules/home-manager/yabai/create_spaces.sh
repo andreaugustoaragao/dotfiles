@@ -27,4 +27,4 @@ do
 done <<< "$CURRENT_SPACES"
 
 sketchybar --trigger space_change --trigger windows_on_spaces
-sketchybar &
+#sketchybar &

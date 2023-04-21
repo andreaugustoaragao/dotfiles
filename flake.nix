@@ -44,7 +44,7 @@ darwinConfigurations."A2130582" = darwin.lib.darwinSystem {
             users.aragao.imports = [ ./modules/home-manager ];
           };
         }
-    ]; # will be important later
+    ];
   };
 
 

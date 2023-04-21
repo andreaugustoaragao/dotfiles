@@ -37,8 +37,10 @@
     pkgs.dt-shell-color-scripts
     pkgs.docker
     pkgs.kubectl
+    pkgs.kubernetes-helm
     pkgs.zellij
-    pkgs.jdk19
+    pkgs.jdk11
+    #pkgs.jdk19
     pkgs.jdt-language-server
     pkgs.lombok
     pkgs.vscode
@@ -74,7 +76,6 @@
     pkgs.nerdfonts
     pkgs.fortune
     pkgs.azure-cli
-    pkgs.lima
     pkgs.docker-credential-helpers
     pkgs.docker-buildx
     pkgs.chafa
@@ -84,10 +85,16 @@
     pkgs.bottom
     pkgs.gh
     pkgs.jq
-    pkgs.sketchybar #config requires SF Pro Font https://developer.apple.com/fonts/
+    #pkgs.sketchybar #config requires SF Pro Font https://developer.apple.com/fonts/
     pkgs.nnn
     pkgs.nodejs
     pkgs.nil
+    pkgs.lazygit
+    pkgs.k6
+    pkgs.maven
+    pkgs.inetutils
+    pkgs.redis
+    pkgs.lima
   ];
 
   homebrew = {
@@ -99,7 +106,7 @@
     };
     global.brewfile = true;
     caskArgs.no_quarantine = true;
-    casks = [ "raycast" "rocket-chat" "google-chrome" "1password" "sf-symbols"];
+    casks = [ "stats" "raycast" "rocket-chat" "google-chrome" "1password" "sf-symbols"];
   };
 
   system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
@@ -145,6 +152,6 @@
 
 #https://github.com/FelixKratz/dotfiles/tree/e6288b3f4220ca1ac64a68e60fced2d4c3e3e20b
 
-  services.yabai.enable = true;
-  services.skhd.enable = true;
+  services.yabai.enable = false;
+  services.skhd.enable = false;
 }
