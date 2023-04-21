@@ -106,7 +106,7 @@
     };
     global.brewfile = true;
     caskArgs.no_quarantine = true;
-    casks = [ "stats" "raycast" "rocket-chat" "google-chrome" "1password" "sf-symbols"];
+    casks = [ "postman" "stats" "raycast" "rocket-chat" "google-chrome" "1password" "sf-symbols"];
   };
 
   system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
