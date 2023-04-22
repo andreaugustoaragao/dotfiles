@@ -1,7 +1,7 @@
 
 #alt - return : "${HOME}"/.config/skhd/open-terminal.sh
 
-alt - return : alacritty msg create-window
+alt - return : alacritty
 
 # Navigation
 alt - h : yabai -m window --focus west
@@ -14,6 +14,9 @@ shift + alt - h : yabai -m window --warp west
 shift + alt - j : yabai -m window --warp south
 shift + alt - k : yabai -m window --warp north
 shift + alt - l : yabai -m window --warp east
+
+# fast focus desktop
+cmd + alt - 2 : yabai -m space --focus 2
 
 # Move focus container to workspace
 shift + alt - m : yabai -m window --space last; yabai -m space --focus last

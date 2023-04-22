@@ -30,64 +30,9 @@
   fonts.fontDir.enable = true;
   fonts.fonts =
     [ (pkgs.nerdfonts.override { fonts = [ "Meslo" "JetBrainsMono" ]; }) ];
+
   environment.systemPackages = [
-    # pkgs.go
-    # pkgs.gopls
-    # pkgs.neovide
-    pkgs.direnv
-    pkgs.dwt1-shell-color-scripts
-    pkgs.docker
-    pkgs.kubectl
-    pkgs.kubernetes-helm
-    pkgs.zellij
-    #pkgs.jdk11
-    #pkgs.jdk19
-    pkgs.jdt-language-server
-    pkgs.lombok
-    pkgs.jetbrains.goland
-    pkgs.jetbrains.idea-ultimate
-    pkgs.speedtest-cli
-    pkgs.graphviz
-    pkgs.plantuml
-    pkgs.git
-    pkgs.coreutils
-    pkgs.k9s
-    pkgs.du-dust
-    pkgs.bat
-    pkgs.wget
-    pkgs.curl
-    pkgs.obsidian
-    pkgs.teams
-    pkgs.neofetch
-    pkgs.tealdeer
-    pkgs.gnupg
-    pkgs._1password
-    pkgs.ngrok
-    pkgs.nixfmt
-    pkgs.cargo
-    pkgs.rustc
-    pkgs.font-awesome_5
-    pkgs.nerdfonts
-    pkgs.fortune
-    pkgs.azure-cli
-    pkgs.docker-credential-helpers
-    pkgs.docker-buildx
-    pkgs.chafa
-    pkgs.taskwarrior
-    pkgs.taskwarrior-tui
-    pkgs.rnix-lsp
-    # pkgs.bottom
-    #pkgs.gh
-    pkgs.jq
-    #pkgs.sketchybar #config requires SF Pro Font https://developer.apple.com/fonts/
-    pkgs.nnn
-    pkgs.nodejs
-    pkgs.nil
-    pkgs.k6
-    pkgs.maven
-    pkgs.inetutils
-    pkgs.redis
-    pkgs.lima
+
   ];
 
   homebrew = {
