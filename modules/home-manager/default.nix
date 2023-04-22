@@ -17,6 +17,8 @@
   programs.fzf.enable = true;
   programs.fzf.enableFishIntegration = true;
   programs.fzf.enableZshIntegration = true;
+  programs.bottom.enable = true;
+
   programs.exa = {
     enable = true;
     enableAliases = true;
@@ -24,7 +26,20 @@
     icons = true;
     git = true;
   };
-  programs.git.enable = true;
+
+  programs.git = {
+    enable = true;
+    userName = "andreaugustoaragao";
+    userEmail = "andrearag@gmail.com";
+    extraConfig = {
+      includeIf = {
+        "gitdir:~/src/avaya/" = {
+          user = "aragao";
+          email = "aragao@avaya.com";
+        };
+      };
+    };
+  };
 
   programs.zsh = {
     enable = true;
@@ -38,38 +53,35 @@
     enable = true;
     enableFishIntegration = true;
     enableZshIntegration = true;
-    settings = { 
+    settings = {
       add_newline = false;
       command_timeout = 1200;
       scan_timeout = 10;
-      format = "[](bold blue)$directory$cmd_duration $all$kubernetes$azure$time
-$character";
+      format = ''
+        [](bold blue)$directory$cmd_duration $all$kubernetes$azure$time
+        $character'';
       azure = {
         disabled = false;
-        format = "\\\[[az:($subscription)]($style)\\\]";
+        format = "\\[[az:($subscription)]($style)\\]";
       };
       kubernetes = {
-        format = "\\\[[k8s:($cluster)]($style)\\\]";
+        format = "\\[[k8s:($cluster)]($style)\\]";
         disabled = false;
       };
       docker_context = {
-        format = "\\\[[($symbol)($context)]($style)\\\]";
-          disabled = false;
+        format = "\\[[($symbol)($context)]($style)\\]";
+        disabled = false;
 
       };
-      gcloud = {
-        disabled = true;
-      };
+      gcloud = { disabled = true; };
       hostname = {
         ssh_only = true;
         format = "<[$hostname]($style)";
         trim_at = "-";
-        style= "bold dimmed white";
+        style = "bold dimmed white";
         disabled = true;
       };
-      line_break = {
-        disabled = true;
-      };
+      line_break = { disabled = true; };
       username = {
         style_user = "bold dimmed blue";
         show_always = false;
@@ -89,12 +101,45 @@ $character";
     settings.window.title = "Alacritty";
     settings.window.dynamic_title = true;
     settings.window.option_as_alt = "Both";
-
+    settings.shell.program = "${pkgs.tmux}/bin/tmux";
+    settings.shell.args = [ "attach" ];
+    #settings.shell.args = [ "- -l" "- -c" "- tmux attach || tmux" ];
   };
 
   programs.java = {
     enable = true;
-    package = pkgs.jdk19;
+    package = pkgs.jdk11;
+  };
+
+  programs.vscode = {
+    enable = true;
+    enableExtensionUpdateCheck = false;
+    enableUpdateCheck = false;
+    userSettings = {
+      "terminal.integrated.fontFamily" = "JetBrainsMono Nerd Font Mono";
+      "terminal.integrated.fontSize" = 14;
+      "terminal.integrated.shellIntegration.enabled" = true;
+      "editor.fontFamily" = "JetBrainsMono Nerd Font Mono";
+      "editor.fontLigatures" = true;
+      "editor.fontSize" = 14;
+      "terminal.integrated.defaultProfile.osx" = "fish";
+      "editor.formatOnSave" = true;
+      "editor.fontWeight" = "medium";
+      "workbench.iconTheme" = "vscode-icons";
+      "go.inlayHints.parameterNames" = true;
+      "go.diagnostic.vulncheck" = "Imports";
+    };
+    extensions = with pkgs.vscode-extensions; [
+      vscodevim.vim
+      bbenoist.nix
+      catppuccin.catppuccin-vsc
+      yzhang.markdown-all-in-one
+      ms-vscode.makefile-tools
+      golang.go
+      redhat.java
+      brettm12345.nixfmt-vscode
+      vscode-icons-team.vscode-icons
+    ];
   };
 
   programs.tmux = {
@@ -115,17 +160,17 @@ $character";
     plugins = with pkgs; [
       {
         plugin = tmuxPlugins.cpu;
-        extraConfig = '' 
-                 set -g status-right "\
-                 #[fg=#89b4fa, bg=colour237] \
-                 #[fg=colour237, bg=#89b4fa] CPU: #{cpu_icon} #{cpu_percentage} \
-                 #[fg=colour241, bg=colour237]\
-                 #[fg=colour7, bg=colour241] %a %h-%d %H:%M \
-                 #[fg=colour248, bg=colour239]"
+        extraConfig = ''
+          set -g status-right "\
+          #[fg=#89b4fa, bg=colour237] \
+          #[fg=colour237, bg=#89b4fa] CPU: #{cpu_icon} #{cpu_percentage} \
+          #[fg=colour241, bg=colour237]\
+          #[fg=colour7, bg=colour241] %a %h-%d %H:%M \
+          #[fg=colour248, bg=colour239]"
 
 
-                 #set -g status-right '#{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %a %h-%d %H:%M '
-                 '';
+          #set -g status-right '#{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | %a %h-%d %H:%M '
+        '';
       }
       {
         plugin = tmuxPlugins.resurrect;
@@ -217,6 +262,10 @@ $character";
 
   };
 
+  programs.go = { enable = true; };
+
+  programs.gitui = { enable = true; };
+
   programs.neovim = {
     enable = true;
     viAlias = true;
@@ -267,7 +316,6 @@ $character";
     ];
   };
 
-  
   xdg.configFile."nvim" = {
     source = ./nvim;
     recursive = true;
@@ -277,7 +325,6 @@ $character";
     source = ./sketchybar;
     recursive = true;
   };
-
 
   xdg.configFile."yabai" = {
     source = ./yabai;
@@ -296,8 +343,9 @@ $character";
     enable = true;
     nix-direnv.enable = true;
     enableZshIntegration = true;
-    # enableFishIntegration = true;
+    #enableFishIntegration = true;
   };
 
+  programs.gh = { enable = true; };
   #home.file.".inputrc".source = ./dotfiles/inputrc;
 }

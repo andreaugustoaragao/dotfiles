@@ -31,7 +31,7 @@
     ]; # will be important later
   };
 
-darwinConfigurations."A2130582" = darwin.lib.darwinSystem {
+  darwinConfigurations."A2130582" = darwin.lib.darwinSystem {
     system = "x86_64-darwin"; # "x86_64-darwin" if you're using a pre M1 mac
     
     modules = [
@@ -47,6 +47,21 @@ darwinConfigurations."A2130582" = darwin.lib.darwinSystem {
     ];
   };
 
+  darwinConfigurations."A2130862" = darwin.lib.darwinSystem {
+    system = "aarch64-darwin"; # "x86_64-darwin" if you're using a pre M1 mac
+    
+    modules = [
+        ./hosts/terminal-mbp/default.nix  
+        home-manager.darwinModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.aragao.imports = [ ./modules/home-manager ];
+          };
+        }
+    ];
+  };
 
 };
 }

@@ -1,21 +1,21 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
 
   programs.fish.enable = true;
   programs.zsh.enable = true;
   #programs.bash.enable = true;
-  
+
   nixpkgs.config.allowUnfree = true;
   # Make sure the nix daemon always runs
   services.nix-daemon.enable = true;
- 
+
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
+
   environment = {
     shells = with pkgs; [ fish ];
     loginShell = "${pkgs.fish}/bin/fish -l";
-    pathsToLink = ["/Applications"];
+    pathsToLink = [ "/Applications" ];
   };
 
   #users.users.andrearagao = {
@@ -28,27 +28,22 @@
   #};
 
   fonts.fontDir.enable = true;
-  fonts.fonts = [ (pkgs.nerdfonts.override { fonts = [ "Meslo" "JetBrainsMono"]; }) ];
+  fonts.fonts =
+    [ (pkgs.nerdfonts.override { fonts = [ "Meslo" "JetBrainsMono" ]; }) ];
   environment.systemPackages = [
-    pkgs.go
-    pkgs.gopls
-    pkgs.neovide
+    # pkgs.go
+    # pkgs.gopls
+    # pkgs.neovide
     pkgs.direnv
-    pkgs.dt-shell-color-scripts
+    pkgs.dwt1-shell-color-scripts
     pkgs.docker
     pkgs.kubectl
     pkgs.kubernetes-helm
     pkgs.zellij
-    pkgs.jdk11
+    #pkgs.jdk11
     #pkgs.jdk19
     pkgs.jdt-language-server
     pkgs.lombok
-    pkgs.vscode
-    pkgs.vscode-extensions.golang.go
-    pkgs.vscode-extensions.catppuccin.catppuccin-vsc
-    pkgs.vscode-extensions.sumneko.lua
-    pkgs.vscode-extensions.jnoortheen.nix-ide
-    pkgs.vscode-extensions.brettm12345.nixfmt-vscode
     pkgs.jetbrains.goland
     pkgs.jetbrains.idea-ultimate
     pkgs.speedtest-cli
@@ -62,7 +57,6 @@
     pkgs.wget
     pkgs.curl
     pkgs.obsidian
-    pkgs.alacritty
     pkgs.teams
     pkgs.neofetch
     pkgs.tealdeer
@@ -82,14 +76,13 @@
     pkgs.taskwarrior
     pkgs.taskwarrior-tui
     pkgs.rnix-lsp
-    pkgs.bottom
-    pkgs.gh
+    # pkgs.bottom
+    #pkgs.gh
     pkgs.jq
     #pkgs.sketchybar #config requires SF Pro Font https://developer.apple.com/fonts/
     pkgs.nnn
     pkgs.nodejs
     pkgs.nil
-    pkgs.lazygit
     pkgs.k6
     pkgs.maven
     pkgs.inetutils
@@ -106,7 +99,15 @@
     };
     global.brewfile = true;
     caskArgs.no_quarantine = true;
-    casks = [ "postman" "stats" "raycast" "rocket-chat" "google-chrome" "1password" "sf-symbols"];
+    casks = [
+      "postman"
+      "stats"
+      "raycast"
+      "rocket-chat"
+      "google-chrome"
+      "1password"
+      "sf-symbols"
+    ];
   };
 
   system.defaults.NSGlobalDomain.AppleKeyboardUIMode = 3;
@@ -132,12 +133,12 @@
   system.defaults.dock.showhidden = true;
   system.defaults.dock.minimize-to-application = true;
   system.defaults.dock.launchanim = false;
-  system.defaults.dock.mineffect = "suck"; #genie, scale, null
+  system.defaults.dock.mineffect = "suck"; # genie, scale, null
   system.defaults.dock.appswitcher-all-displays = true;
   system.defaults.dock.show-recents = false;
 
- # below cannot be changed in Avaya laptops - this should be placed on its own separate file
- # system.defaults.alf.globalstate = 0;
+  # below cannot be changed in Avaya laptops - this should be placed on its own separate file
+  # system.defaults.alf.globalstate = 0;
 
   system.defaults.finder.AppleShowAllExtensions = true;
   system.defaults.finder.QuitMenuItem = true;
@@ -150,8 +151,8 @@
   system.keyboard.remapCapsLockToEscape = true;
   security.pam.enableSudoTouchIdAuth = true;
 
-#https://github.com/FelixKratz/dotfiles/tree/e6288b3f4220ca1ac64a68e60fced2d4c3e3e20b
+  #https://github.com/FelixKratz/dotfiles/tree/e6288b3f4220ca1ac64a68e60fced2d4c3e3e20b
 
-  services.yabai.enable = false;
-  services.skhd.enable = false;
+  services.yabai.enable = true;
+  services.skhd.enable = true;
 }
